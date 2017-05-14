@@ -1,68 +1,48 @@
-<html>
- <body>
-  <div align="top" id="panel1">
-   <ui-select id="levels" list_value="NAME" ng-disabled="false" ng-model theme="select2" style="width:100%" title="Уровень обучения">
-    <ui-select-match>
-     {{$select.selected.NAME}}
-    </ui-select-match>
-    <ui-select-choices repeat="y in data_levels">
-     <div ng-bind-html="trustAsHtml(y.NAME)">
-     </div>
-    </ui-select-choices>
-   </ui-select>
-  </div>
-  <div align="client" id="main_panel">
-   <div align="left" id="left_panel" width="300">
-    <label>
-     caption="Учебные планы" align="top"
-    </label>
-    <div align="client" id="curr_grd" ng-click="curr_grdClick()" style="height: 450px;" ui-grid-cellNav ui-grid-resize-columns ui-grid-move-columns ui-grid-pinning ui-grid-selection ui-grid-exporter ui-grid-auto-resize ui-grid="curr_grdOptions">
-     <!--значения по умолчанию параметров функции-->
-     <parameters>
-      <param default_value="0" id="v_level">
-      </param>
-      <param default_value="0" id="v_id_facultet">
-      </param>
-     </parameters>
-     <!--обработчик-->
-     <on_click detail_grid="files_grd" detail_parameter="v_id_curriculum" master_field="ID_CURRICULUM">
-     </on_click>
-    </div>
+
+<div align="top" id="panel1">
+ <ui-select id="levels" list_value="NAME" ng-disabled="false" ng-model theme="select2" style="width:100%" title="Уровень обучения">
+  <ui-select-match>
+   {{$select.selected.NAME}}
+  </ui-select-match>
+  <ui-select-choices repeat="y in data_levels">
+   <div ng-bind-html="trustAsHtml(y.NAME)">
    </div>
-   <div align="client" id="content_panel">
-    <uib-tabset id="my_tabs" justified="true">
-     <uib-tab heading="Вкладка №1" id="tab1">
-      <div align="top" id="Panel3">
-       <button class="btn btn-primary" id="btn1" type="button">
-       </button>
-       <button class="btn btn-primary" id="btn2" type="button">
-       </button>
-      </div>
-      <div align="client" id="files_grd" ui-grid-cellNav ui-grid-resize-columns ui-grid-move-columns ui-grid-pinning ui-grid-selection ui-grid-exporter ui-grid-auto-resize ui-grid="files_grdOptions">
-       <parameters>
-        <param default_value="0" id="v_id_curriculum">
-        </param>
-       </parameters>
+  </ui-select-choices>
+ </ui-select>
+</div>
+<div align="client" id="main_panel">
+ <div align="left" id="left_panel" width="300">
+  <label>
+   caption="Учебные планы" align="top" name="label"
+  </label>
+  <div align="client" id="curr_grd" ng-click="curr_grdClick()" style="height: 450px;" ui-grid-cellNav ui-grid-resize-columns ui-grid-move-columns ui-grid-pinning ui-grid-selection ui-grid-exporter ui-grid-auto-resize ui-grid="curr_grdOptions">
+  </div>
+
+ </div>
+ <div align="client" id="content_panel">
+  <uib-tabset id="my_tabs" justified="true">
+   <uib-tab heading="Вкладка №1" id="tab1">
+    <div align="top" id="Panel3">
+     <button class="btn btn-primary" id="btn1" type="button"/>
+     <button class="btn btn-primary" id="btn2" type="button"/>
+    </div>
+    <div align="client" id="files_grd" ui-grid-cellNav ui-grid-resize-columns ui-grid-move-columns ui-grid-pinning ui-grid-selection ui-grid-exporter ui-grid-auto-resize ui-grid="files_grdOptions">
+    </div>
+   </uib-tab>
+   <uib-tab heading="Вкладка №2" id="tab2">
+    <uib-tabset id="my_tabs2" justified="true">
+     <uib-tab heading="Default Size" id="tb21">
+      <div class="btn-group" id="btn_group">
+       <button caption="Action1" class="btn btn-primary" id="btn3" type="button"/>
+       <button caption="Action2" class="btn btn-primary" id="btn4" type="button"/>
+       <button caption="Action3" class="btn btn-primary" id="btn5" type="button"/>
       </div>
      </uib-tab>
-     <uib-tab heading="Вкладка №2" id="tab2">
-      <uib-tabset id="my_tabs" justified="true">
-       <uib-tab heading="Default Size" id="tb21">
-        <btn_group>
-         <button caption="Action1">
-         </button>
-         <button caption="Action2">
-         </button>
-         <button caption="Action3">
-         </button>
-        </btn_group>
-       </uib-tab>
-       <uib-tab heading="Small Button" id="tb21">
-       </uib-tab>
-      </uib-tabset>
+     <uib-tab heading="Small Button" id="tb22">
+
      </uib-tab>
     </uib-tabset>
-   </div>
-  </div>
- </body>
-</html>
+   </uib-tab>
+  </uib-tabset>
+ </div>
+</div>
