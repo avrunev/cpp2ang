@@ -31,7 +31,12 @@ angular.module('myApp.{{js_name}}', ['ngRoute','execAPI'])
             noUnselect: true,
             enableFiltering: true,
             columnDefs:  [
-                {{curr_grd}}
+                {% for col in curr_grd[1] %}
+                    { {% for item in col %}
+                        {% if item!='maxWidth' and item!='minWidth' %} {{item}}:'{{col[item]}}', {% else %} {{item}}:{{col[item]}}, {% endif %}
+                    {% endfor %} } {% if col!=curr_grd[1][-1] %}, {% endif %}
+                {% endfor %}
+
                 { field: 'ID_CURRICULUM', displayName: '№', maxWidth: 80},
                 { field: 'OKSO_STR', displayName: 'Направление' },
                 { field: 'PROFILE_DIRECTION' , displayName: 'Профиль' },
@@ -44,7 +49,7 @@ angular.module('myApp.{{js_name}}', ['ngRoute','execAPI'])
         };
 
 
-        apiCiu.func('decanatuser.ohop_on_site_pkg.get_currs',[0,0]).success(
+        apiCiu.func('{{curr_grd[0]}}',[{{get_currs}}]).success(
             function (data) {
                $scope.curr_grdOptions.data = data;
             }
@@ -58,6 +63,11 @@ angular.module('myApp.{{js_name}}', ['ngRoute','execAPI'])
             noUnselect: true,
             enableFiltering: true,
             columnDefs:  [
+                {% for col in files_grd[1] %}
+                    {% if col!=files_grd[1][-1] %} { field: '{{col.field}}' , displayName: '{{col.id}}' {% if col.minwidth %}, minWidth: {{col.minwidth}} {% endif %} }, {% else %} { field: '{{col.field}}' , displayName: '{{col.id}}' {% if col.minwidth %}, minWidth: {{col.minwidth}} {% endif %} }
+                    {% endif %}
+                {% endfor %}
+
                 { field: 'NAME', displayName: 'Тип', minWidth: 120},
                 { field: 'PUBLISH_DATE', displayName: 'Дата загрузки' }
             ],
@@ -69,7 +79,7 @@ angular.module('myApp.{{js_name}}', ['ngRoute','execAPI'])
         $scope.curr_grdClick = function(){
             var rows = $scope.curr_grdApi.selection.getSelectedRows();
             $scope.id_curriculum = rows[0]["{{curr_grd[1][0]['field']}}"];
-            apiCiu.func('decanatuser.ohop_on_site_pkg.get_curr_files',[$scope.id_curriculum]).success(
+            apiCiu.func('{{files_grd[0]}}',[$scope.id_curriculum]).success(
                 function (data) {
                     $scope.files_grdOptions.data = data;
                 }

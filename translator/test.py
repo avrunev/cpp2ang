@@ -6,11 +6,13 @@ import logging
 import copy
 from jinja2 import Environment, FileSystemLoader
 
+
 logging.basicConfig(level=logging.INFO, format='%(lineno)d %(asctime)s %(message)s')
 soup = BeautifulSoup(open("form1.xml"),"lxml")     #дерево разбора, получаемое с использованием синт. анализатора LXML
+
 new_soup = copy.deepcopy(soup)                     #его копия
 
-f = open('view2.html', 'w')                 #открываем файл для записи
+f = open('view2.html', 'w')                 #открытие файла для записи
 
 tag=soup.form            #начальный тег <form>
 tag=tag.next			 #переход дальше
@@ -76,6 +78,9 @@ def func_grid(tag):
     tag.name= "div"
     str='ui-grid-cellNav ui-grid-resize-columns ui-grid-move-columns ui-grid-pinning ui-grid-selection ui-grid-exporter ui-grid-auto-resize '
     tag[str+'ui-grid'] = tag['id']+'Options'
+    tag['data'], rub = tag['data'].split('(')               #модификация данных для шаблона в удобную форму
+    if tag['id'] == 'curr_grd':
+        data['get_currs']=rub.replace(rub[-1],'')
     if tag.children is not None:
         for child in tag.children:
             if child.name=='column':
@@ -114,9 +119,9 @@ def func_button(tag):
     add = False
     tag['type'] = 'button'
     tag['class'] = "btn btn-primary"
-    if new_soup.find(id=tag['id']).find("caption") is not None:  #ошибка
-        tag.string = tag['caption']
-        del tag['caption']
+    #if tag["caption"] is not None:  #ошибка
+     #   tag.string = tag['caption']
+      #  del tag['caption']
     return add, count
     
 def func_btn_group(tag):
@@ -170,7 +175,7 @@ for tag in del_list:
     tag.decompose()
 
 
-f.write(str(new_soup.prettify()))                                   #запись обработанного дерева в файл
+f.write(str(new_soup.prettify().replace('<?xml version="1.0" encoding="utf-8"?>','')))  #запись обработанного дерева в файл
 
 
 env = Environment(loader=FileSystemLoader('.'))         #загрузка шаблона
