@@ -1,0 +1,9 @@
+<form name="dialog2">
+    <label caption="Всплывающее окно" align="top"/>
+    <panel>
+        <btn_group>
+            <button caption="Принять"/>
+            <button caption="Отклонить"/>
+        </btn_group>
+    </panel>
+</form>

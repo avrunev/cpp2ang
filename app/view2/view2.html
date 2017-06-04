@@ -1,0 +1,37 @@
+<!--Верхняя панель-->
+<div class="row" style="margin-left: 5px; margin-right: 5px" id="panel1">
+    <div class="col-lg-12">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <div class="col-lg-1 col-sm-1">
+                </div>
+                <div class="col-lg-8 col-sm-8">
+                    <ui-select id="levels"
+                               ng-model="current_level"
+                               theme="select2"
+                               ng-disabled="false"
+                               on-select="levelsChange($item)"
+                               title="Уровень обучения"
+                               style="width:100%">
+                        <ui-select-match>{{$select.selected.NAME}}</ui-select-match>
+                        <ui-select-choices repeat="y in data_levels">
+                            <div ng-bind-html="trustAsHtml(y.NAME)"></div>
+                        </ui-select-choices>
+                    </ui-select>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--Основная панель-->
+<div class="row" style="margin-left: 5px; margin-right: 5px" id="main_panel">
+    <div class="col-lg-7 col-sm-7  col-xs-7">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <p>Учебные планы</p>
+                <div id="curr_grd" ui-grid="curr_grdOptions" style="height: 450px;" ui-grid-cellNav ui-grid-resize-columns ui-grid-move-columns
+                     ui-grid-pinning ui-grid-selection ui-grid-exporter ui-grid-auto-resize ng-click="curr_grdClick()"></div>
+            </div>
+        </div>
+    </div>
+</div>

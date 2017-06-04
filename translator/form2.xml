@@ -1,0 +1,26 @@
+<form name="view2">
+    <panel align="top" height="100" name="panel1">
+        <lookup name="levels" data="decanatuser.ohop_on_site_pkg.get_levels" list_value="NAME" label="Уровень обучения">
+            <on_change detail_grid="curr_grd" master_field="KEY2" detail_parameter="v_level"/>
+        </lookup>
+    </panel>
+    <panel align="client" name="main_panel">
+        <panel align="left" width="300" name="left_panel">
+        <label> caption="Учебные планы" align="top"</label>
+        <grid data="decanatuser.ohop_on_site_pkg.get_currs(v_level,v_id_facultet)"  name="curr_grd" align="client">
+            <!--значения по умолчанию параметров функции-->
+            <parameters>
+                <param name="v_level" default_value="0"/>
+                <param name="v_id_facultet" default_value="0"/>
+            </parameters>
+            <!--обработчик-->
+            <on_click dialog="dialog2.xml"/>
+            <column name="№" field="ID_CURRICULUM" maxWidth="80"/>
+            <column name="Направление" field="OKSO_STR" />
+            <column name="Профиль" field="PROFILE_DIRECTION" />
+            <column name="Факультет" field="FACULTET"  maxWidth="80" />
+            <column name="Год" field="YEAR_ENROL"  maxWidth="80" />
+        </grid>
+        </panel>
+</panel>
+</form>
